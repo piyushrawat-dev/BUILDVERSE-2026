@@ -20,14 +20,24 @@ export interface BuildVerseConfig {
   prize: { headline: string; totalInr: number | null; art: boolean; details: string; items: string[] };
   /** Empty array => "To be revealed soon" is shown instead. */
   judges: { name: string; title: string }[];
+  /** Day-by-day schedule. Times are shown as written; `start`/`end` (ISO, IST) only drive the "Live now / Next up" badges. */
   days: {
     date: string; // ISO date, IST
-    label: string;
+    day: string; // "29"
+    month: string; // "OCT"
+    label: string; // "Day 01"
     title: string;
-    mode: string;
-    time: string; // "TBA" until announced
-    venue?: string;
-    description: string;
+    subtitle: string;
+    steps: {
+      icon: "workshop" | "idea" | "progress" | "pitch";
+      time?: string; // as displayed, e.g. "2:00 PM – 10:00 PM"; leave out until announced
+      timeNote?: string;
+      title: string;
+      description: string;
+      badge: { text: string; tone: "neutral" | "info" | "warn" };
+      start?: string;
+      end?: string;
+    }[];
   }[];
   utkrisht: { show: boolean; text: string };
   /** Overarching theme shown above the innovation tracks. */
@@ -65,20 +75,55 @@ export const BUILDVERSE: BuildVerseConfig = {
   days: [
     {
       date: "2026-10-29",
-      label: "29 October 2026",
-      title: "Online Workshop",
-      mode: "Hybrid (via Google Meet)",
-      time: "TBA",
-      description: "Expert sessions on AI-assisted development workflows and modern tools.",
+      day: "29",
+      month: "OCT",
+      label: "Day 01",
+      title: "Learn, Ideate & Build",
+      subtitle: "Industry workshops · Idea submission · Prototype development",
+      steps: [
+        {
+          icon: "workshop",
+          time: "2:00 PM – 10:00 PM",
+          title: "Industry Workshops",
+          description: "Learn from industry experts through practical workshops. More workshop sessions and schedules will be announced soon.",
+          badge: { text: "Learning phase", tone: "neutral" },
+          start: "2026-10-29T14:00:00+05:30",
+          end: "2026-10-29T22:00:00+05:30",
+        },
+        {
+          icon: "idea",
+          time: "6:00 PM",
+          title: "Round 1: Idea Submission",
+          description: "The first submission form will be shared with participants. Submit your project idea, the problem you're solving, and your proposed solution.",
+          badge: { text: "Form 01 opens", tone: "info" },
+          start: "2026-10-29T18:00:00+05:30",
+        },
+        {
+          icon: "progress",
+          time: "12:00 AM",
+          timeNote: "Midnight, night of 29–30 Oct",
+          title: "Round 2: Progress Report",
+          description: "The second form will be shared at midnight. Report your progress, explain your prototype, and document the work completed so far.",
+          badge: { text: "Form 02 opens", tone: "info" },
+          start: "2026-10-30T00:00:00+05:30",
+        },
+      ],
     },
     {
       date: "2026-10-30",
-      label: "30 October 2026",
-      title: "Build & Pitch",
-      mode: "Physical (presentation at campus)",
-      time: "2:30 PM – 5:30 PM",
-      venue: "New Seminar Hall, Tulas University",
-      description: "Product demonstration and pitching to the judging panel.",
+      day: "30",
+      month: "OCT",
+      label: "Day 02",
+      title: "Present, Pitch & Compete",
+      subtitle: "Final presentation · Project evaluation",
+      steps: [
+        {
+          icon: "pitch",
+          title: "Round 3: Final Presentation & Pitch",
+          description: "Present your solution, demonstrate your prototype, and explain the problem, your approach, and the impact of your idea to the evaluation panel.",
+          badge: { text: "Exact timing to be announced", tone: "warn" },
+        },
+      ],
     },
   ],
   utkrisht: { show: true, text: "Part of Utkrisht 2026 (30–31 October)" },

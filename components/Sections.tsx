@@ -392,36 +392,7 @@ export function Prizes() {
   );
 }
 
-export function Timeline() {
-  return (
-    <section id="timeline" className="scroll-mt-20 py-16">
-      <div className={wrap}>
-        <p className={eyebrow}>Event timeline</p>
-        <h2 className={h2}>Two days. From learning to pitching.</h2>
-        <ol className="mt-8 grid gap-4 md:grid-cols-2">
-          {C.days.map((d, i) => (
-            <li key={d.date} className={`${card} timeline-card p-6 transition-all duration-300 hover:border-violet-200 hover:shadow-md`}>
-              <p className="text-sm font-semibold text-violet-600">Day {i + 1} · {d.label}</p>
-              <h3 className="mt-1 text-xl font-medium text-violet-950">{d.title}</h3>
-              <dl className="mt-3 space-y-1 text-sm text-violet-950/85">
-                <div className="flex gap-2"><dt className="font-semibold">Time:</dt><dd>{d.time === "TBA" ? <span className="rounded bg-amber-100 px-1.5 font-semibold text-amber-900">To be announced</span> : d.time}</dd></div>
-                <div className="flex gap-2"><dt className="font-semibold">Mode:</dt><dd>{d.mode}</dd></div>
-                {d.venue && <div className="flex gap-2"><dt className="font-semibold">Venue:</dt><dd>{d.venue}</dd></div>}
-              </dl>
-              <p className="mt-3 text-sm text-violet-950/70">{d.description}</p>
-            </li>
-          ))}
-        </ol>
-        {C.utkrisht.show && (
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <UtkrishtLogo className="h-16 w-auto" />
-            <p className="text-sm text-violet-950/70">{C.utkrisht.text}.</p>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
+export { Schedule as Timeline } from "./Schedule";
 
 export const Participation = Rules;
 
